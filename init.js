@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 const fs = require('fs');
 
@@ -31,6 +33,10 @@ app.get("/main.js", (req, res) => {
     });
 });
 
-app.listen(1337, (err) => {
+io.on('connection', (socket) => {
+    console.log("Connected user");
+});
+
+http.listen(1337, (err) => {
     console.log("server ready");
 });
